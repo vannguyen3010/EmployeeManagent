@@ -1,10 +1,12 @@
 ﻿@page "/home/dashboard"
-@using Client.Pages.AdministrasionPages
-@using Client.Pages.DepartmentPages
+
+
 @layout MainLayout
 
 <TableBanner/>
 <GeneralDepartmentPage/>
+<DepartmentPage/>
+<BranchPage/>
 @code {
     //Nếu chưa đăng nhập thì nó sẽ đá qua trang login
     [CascadingParameter] public Task<AuthenticationState> AuthenticationState { get; set; }
