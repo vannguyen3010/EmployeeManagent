@@ -1,12 +1,24 @@
 ﻿@page "/home/dashboard"
 
-
 @layout MainLayout
 
 <TableBanner/>
 <GeneralDepartmentPage/>
 <DepartmentPage/>
 <BranchPage/>
+<CountryPage/>
+<CityPage/>
+<TownPage/>
+<UserPage/>
+<DoctorPage/>
+<OvertimePage/>
+<SactionPage/>
+<VacationPage/>
+<VacationTypePage/>
+<OvertimeTypePage/>
+<SactionTypePage/>
+@* <AddOrUpdateEmployeePage/> *@
+<EmployeePage/>
 @code {
     //Nếu chưa đăng nhập thì nó sẽ đá qua trang login
     [CascadingParameter] public Task<AuthenticationState> AuthenticationState { get; set; }

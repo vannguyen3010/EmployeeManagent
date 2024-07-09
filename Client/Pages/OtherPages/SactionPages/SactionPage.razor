@@ -1,0 +1,144 @@
+﻿@implements IDisposable
+@if (allState.ShowSaction)
+{
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card shadow-lg border-info">
+                    <div class="card-header">
+                        <h4 class="float-start">Manage Employees Overtime</h4>
+                    </div>
+                    <div class="card-body">
+                        @{
+                            var Tool = (new List<string>() { "Search", "ExcelExport", "PdfExport", "Print" });
+                        }
+                        <SfGrid DataSource="@Sactions" AllowPaging="true" AllowSorting="true"
+                                Toolbar=@Tool AllowExcelExport="true" @ref="DefaultGrid" AllowPdfExport="true">
+                            <GridPageSettings PageSize="5"></GridPageSettings>
+                            <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="Saction"></GridEvents>
+                            <GridColumns>
+                                <GridColumn Field="@nameof(Saction.EmployeeId)" HeaderText="ID"></GridColumn>
+                                <GridColumn HeaderText="Type">
+                                    <Template>
+                                        @* @{
+                                            var saction = (context as Saction);
+                                            <div>
+                                                @saction!.SactionType!.Name
+                                            </div>
+                                        } *@
+                                        @{
+                                            var item = context as Saction;
+                                            if (item != null && item.SactionType != null)
+                                            {
+                                                <div>
+                                                    @item.SactionType.Name
+                                                </div>
+                                            }
+                                        }
+                                    </Template>
+                                </GridColumn>
+                                <GridColumn Field=@nameof(Saction.Date) HeaderText="Occuring Date"></GridColumn>
+                                <GridColumn Field=@nameof(Saction.Punishment) HeaderText="Punishment"></GridColumn>
+                                <GridColumn Field=@nameof(Saction.PunishmentDate) HeaderText="Punishment Date"></GridColumn>
+                                <GridColumn HeaderText="Action">
+                                    <Template>
+                                        @{
+                                            var employee = (context as Saction);
+                                            <div>
+                                                <i class="bi bi-pencil text-info" id="cursorStyle" @onclick="()=>EditClicked(employee!)"></i>
+                                                <i class="bi bi-trash text-danger" id="cursorStyle" @onclick="()=>DeleteClicked(employee!)"></i>
+                                            </div>
+                                        }
+                                    </Template>
+                                </GridColumn>
+                            </GridColumns>
+                        </SfGrid>
+                    </div>
+                    <div class="card-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    #cursorStyle {
+        cursor: pointer;
+    }
+</style>
+<SactionDialog @ref="sactionDialog"
+                ItemModel="ItemModel"
+               SactionTypes="SactionTypes"
+                HandleSaveOperationEvent="HandleSaveOperationEvent" />
+@code {
+    private SfGrid<Saction>? DefaultGrid;
+    SactionDialog? sactionDialog;
+
+    Saction ItemModel = new();
+    public List<Saction> Sactions { get; set; } = new();
+    public List<SactionType> SactionTypes { get; set; } = new();
+    protected async override Task OnInitializedAsync()
+    {
+        await GetTypes();
+        await GetSactions();
+        allState.Action += StateHasChanged;
+    }
+    private async Task GetTypes() => SactionTypes = await sactionTypeService.GetAll(Constants.SactionTypeBaseUrl);
+
+    private async Task GetSactions() => Sactions = await sactionService.GetAll(Constants.SactionBaseUrl);
+
+    void OpenDialog() => sactionDialog?.OpenDialog();
+
+    private async Task HandleSaveOperationEvent(Saction item)
+    {
+        var result = await sactionService.Update(item, Constants.SactionBaseUrl);
+        bool successCheck = await DisplayMessage(result.Flag, result.Message);
+        if (successCheck)
+        {
+            ItemModel = new();
+            await GetSactions();
+        }
+    }
+    //Edit
+    protected void EditClicked(Saction item)
+    {
+        ItemModel = item;
+        OpenDialog();
+    }
+
+    //Delete
+    protected async Task DeleteClicked(Saction item)
+    {
+        bool confirm = await dialogService.ConfirmAsync($"Are you sure you wanna delete this", "Confirm Delete");
+        if (!confirm) return;
+
+        var response = await sactionService.DeleteId(item.EmployeeId, Constants.OvertimeBaseUrl);
+        var result = await DisplayMessage(response.Flag, response.Message);
+        if (result)
+            await GetSactions();
+    }
+    private async Task<bool> DisplayMessage(bool flag, string message)
+    {
+        if (flag)
+        {
+            await dialogService.AlertAsync(message, "Success Operation");
+            return true;
+        }
+        else
+        {
+            await dialogService.AlertAsync(message, "Alert!");
+            return false;
+        }
+    }
+
+    //Excel export / PDF Export
+    public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Text == "Excel Export")
+            await this.DefaultGrid!.ExcelExport()!;
+        if (args.Item.Text == "PDF Export")
+            await this.DefaultGrid!.PdfExport()!;
+    }
+    public void Dispose() => allState.Action -= StateHasChanged;
+}

@@ -1,0 +1,42 @@
+﻿
+<SfDialog Width="350px" IsModal="true" ShowCloseIcon="true" @bind-Visible="IsVisible">
+    <DialogEvents OnOpen="OpenDialog"></DialogEvents>
+    <DialogTemplates>
+        <Header>@Title Saction Type</Header>
+        <Content>
+            <EditForm Model="SactionType" Enhance OnSubmit="Save">
+                <div class="card border-success">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="form-label">Name</label>
+                            <InputText @bind-Value="SactionType.Name" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </EditForm>
+        </Content>
+    </DialogTemplates>
+    <DialogButtons>
+        <DialogButton Content="SAVE" Type="ButtonType.Submit" IsPrimary="true" OnClick="Save" />
+    </DialogButtons>
+</SfDialog>
+
+@code {
+    [Parameter] public SactionType SactionType { get; set; } = new();
+    [Parameter] public EventCallback<SactionType> HandleSaveOperationEvent { get; set; }
+    public string Title { get; set; } = "Add";
+    private bool IsVisible { get; set; } = false;
+    private async void Save()
+    {
+        if (string.IsNullOrEmpty(SactionType.Name))
+            await dialogService.AlertAsync("You need to provide type.", "Alert!");
+        else
+            await HandleSaveOperationEvent.InvokeAsync(SactionType);
+    }
+    public void OpenDialog()
+    {
+        IsVisible = true;
+        StateHasChanged();
+    }
+    public void ChangeTitle(string title) => Title = title;
+}

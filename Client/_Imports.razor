@@ -14,11 +14,22 @@
 @using BaseLibrary.DTOs
 @using ClientLibrary.Helpers
 @using Syncfusion.Blazor.Popups
-@using Client.Pages.OtherPages
 @using Syncfusion.Blazor.DropDowns
 @using ClientLibrary.Services.Contracts
-@using Client.Pages.ContentPages.DepartmentPages
+@using Syncfusion.Blazor.Grids
 @using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Authorization
+
+@using Client.Pages.ContentPages.UserPages
+@using Client.Pages.OtherPages
+@using Client.Pages.ContentPages.DepartmentPages
+@using Client.Pages.ContentPages.LocationPages
+@using Client.Pages.ContentPages.EmployeePages
+
+@using Client.Pages.OtherPages.DoctorPages
+@using Client.Pages.OtherPages.OvertimePages
+@using Client.Pages.OtherPages.SactionPages
+@using Client.Pages.OtherPages.VacationPages
 
 @inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager NavManager
@@ -41,6 +52,18 @@
 @inject IGenericServiceInterface<Country> countryService
 @inject IGenericServiceInterface<City> cityService
 @inject IGenericServiceInterface<Town> townService
+
+@* / Suplementary tables *@
+@inject IGenericServiceInterface<Overtime> overtimeService
+@inject IGenericServiceInterface<OvertimeType> overtimeTypeService
+
+@inject IGenericServiceInterface<Vacation> vacationService
+@inject IGenericServiceInterface<VacationType> vacationTypeService
+
+@inject IGenericServiceInterface<Saction> sactionService
+@inject IGenericServiceInterface<SactionType> sactionTypeService
+
+@inject IGenericServiceInterface<Doctor> doctorService
 
 @* /Employee *@
 @inject IGenericServiceInterface<Employee> employeeService
