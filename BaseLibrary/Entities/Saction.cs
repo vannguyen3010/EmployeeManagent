@@ -13,5 +13,7 @@ namespace BaseLibrary.Entities
 
         //Many to one relationship with Vacation Type
         public SactionType? SactionType { get; set; }
+        [Required]
+        public int SactionTypeId { get; set; }
     }
 }

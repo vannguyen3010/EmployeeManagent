@@ -9,8 +9,6 @@ namespace BaseLibrary.Entities
         [Required]
         public string FileNumber { get; set; } = string.Empty;
         [Required]
-        public string FullName { get; set; } = string.Empty;
-        [Required]
         public string JobName { get; set; } = string.Empty;
         [Required]
         public string Address { get; set; } = string.Empty;
@@ -18,7 +16,7 @@ namespace BaseLibrary.Entities
         public string TelephoneNumber { get; set; } = string.Empty;
         [Required]
         public string Photo { get; set; } = string.Empty;
-        public string? Orther { get; set; }
+        public string? Other { get; set; }
 
         //Many to one relationship with Brach
         public Branch? Branch { get; set; }

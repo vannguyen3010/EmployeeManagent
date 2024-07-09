@@ -68,8 +68,71 @@
             Action?.Invoke();
         }
 
+        //Doctor
+        public bool ShowHealth { get; set; }
+        public void HealthClicked()
+        {
+            ResetAllDepartment();
+            ShowHealth = true;
+            Action?.Invoke();
+        }
+
+        //Overtime
+        public bool ShowOverTime { get; set; }
+        public void OvertimeClicked()
+        {
+            ResetAllDepartment();
+            ShowOverTime = true;
+            Action?.Invoke();
+        }
+
+        //Overtime Type
+        public bool ShowOverTimeType { get; set; }
+        public void OvertimeTypeClicked()
+        {
+            ResetAllDepartment();
+            ShowOverTimeType = true;
+            Action?.Invoke();
+        }
+
+        //Saction
+        public bool ShowSaction { get; set; }
+        public void SactionClicked()
+        {
+            ResetAllDepartment();
+            ShowSaction = true;
+            Action?.Invoke();
+        }
+
+        //Saction Type
+        public bool ShowSactionType { get; set; }
+        public void SactionTypeClicked()
+        {
+            ResetAllDepartment();
+            ShowSactionType = true;
+            Action?.Invoke();
+        }
+
+        //Vacation
+        public bool ShowVacation { get; set; }
+        public void VacationClicked()
+        {
+            ResetAllDepartment();
+            ShowVacation = true;
+            Action?.Invoke();
+        }
+
+        //Vacation Type
+        public bool ShowVacationType { get; set; }
+        public void VacationTypeClicked()
+        {
+            ResetAllDepartment();
+            ShowVacationType = true;
+            Action?.Invoke();
+        }
+
         //Employee
-        public bool ShowEmployee { get; set; }
+        public bool ShowEmployee { get; set; } = true;
         public void EmployeeTownClicked()
         {
             ResetAllDepartment();
@@ -87,6 +150,13 @@
             ShowTown = false;
             ShowUser = false;
             ShowEmployee = false;
+            ShowHealth = false;
+            ShowOverTime = false;
+            ShowSaction = false;
+            ShowVacation = false;
+            ShowOverTimeType = false;
+            ShowVacationType = false;
+            ShowSactionType = false;
         }
     }
 }
