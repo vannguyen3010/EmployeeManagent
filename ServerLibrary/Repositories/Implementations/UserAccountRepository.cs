@@ -151,7 +151,6 @@ namespace ServerLibrary.Repositories.Implementations
             await appDbContext.SaveChangesAsync();
             return new LoginResponse(true, "Token refreshed successfully", jwtToken, refreshToken);
         }
-
         public async Task<List<ManagerUser>> GetUsers()
         {
             var allUsers = await GetApplicationUsers();
@@ -177,9 +176,7 @@ namespace ServerLibrary.Repositories.Implementations
             await appDbContext.SaveChangesAsync();
             return new GeneralResponse(true, "User role updated successfully");
         }
-
         public async Task<List<SystemRole>> GetRoles() => await SystemRoles();
-
         public async Task<GeneralResponse> DeleteUser(int id)
         {
             var user = await appDbContext.ApplicationUsers.FirstOrDefaultAsync(u => u.Id == id);
@@ -191,5 +188,17 @@ namespace ServerLibrary.Repositories.Implementations
         private async Task<List<UserRole>> UserRoles() => await appDbContext.UserRoles.AsNoTracking().ToListAsync();
         private async Task<List<ApplicationUser>> GetApplicationUsers() => await appDbContext.ApplicationUsers.AsNoTracking().ToListAsync();
 
+
+        public async Task<string> GetUserImage(int id) => (await GetApplicationUsers()).FirstOrDefault(x => x.Id == id)!.Image;
+
+        public async Task<bool> UpdateProfile(UserProfile profile)
+        {
+            var user = await appDbContext.ApplicationUsers.FirstOrDefaultAsync(x => x.Id == int.Parse(profile.Id));
+            user!.Email = profile.Email;
+            user.FullName = profile.Name;
+            user.Image = profile.Image;
+            await appDbContext.SaveChangesAsync();
+            return true;
+        }
     }
 }

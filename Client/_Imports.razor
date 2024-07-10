@@ -26,6 +26,8 @@
 @using Client.Pages.ContentPages.LocationPages
 @using Client.Pages.ContentPages.EmployeePages
 
+@using Client.Pages.ContentPages.ProfilePages
+
 @using Client.Pages.OtherPages.DoctorPages
 @using Client.Pages.OtherPages.OvertimePages
 @using Client.Pages.OtherPages.SactionPages
@@ -67,3 +69,8 @@
 
 @* /Employee *@
 @inject IGenericServiceInterface<Employee> employeeService
+
+@* //User Profile *@
+@inject UserProfileState userProfileState
+
+@inject GetHttpClient getHttpClient
