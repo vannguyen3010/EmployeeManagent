@@ -140,6 +140,15 @@
             Action?.Invoke();
         }
 
+        //Show User profile
+        public bool ShowUserProfile { get; set; } = true;
+        public void UserProfileClicked()
+        {
+            ResetAllDepartment();
+            ShowUserProfile = true;
+            Action?.Invoke();
+        }
+
         private void ResetAllDepartment()
         {
             ShowGeneralDepartment = false;
@@ -157,6 +166,7 @@
             ShowOverTimeType = false;
             ShowVacationType = false;
             ShowSactionType = false;
+            ShowUserProfile = false;
         }
     }
 }
