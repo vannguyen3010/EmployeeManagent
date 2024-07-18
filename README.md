@@ -1,10 +1,7 @@
+# Employee Management System
 # Diagram
 ![Diagram](https://github.com/user-attachments/assets/f3d354c5-0b9a-4364-8352-a4a47889e7ce)
 
-
-
-
-# Employee Management System
 
 ## Table of Contents
 - [Introduction](#introduction)
