@@ -1,5 +1,6 @@
 # Diagram
-![Uploading Diagram.jpg…]()
+![Diagram](https://github.com/user-attachments/assets/f3d354c5-0b9a-4364-8352-a4a47889e7ce)
+
 
 
 
