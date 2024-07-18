@@ -1,7 +1,8 @@
 # Employee Management System
-# Diagram
+# Diagram IMG
 ![Diagram](https://github.com/user-attachments/assets/f3d354c5-0b9a-4364-8352-a4a47889e7ce)
-
+# API IMG
+![Swagger-UI](https://github.com/user-attachments/assets/a99f0454-d896-482f-9d03-27629d554832)
 
 ## Table of Contents
 - [Introduction](#introduction)
