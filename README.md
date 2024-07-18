@@ -44,3 +44,21 @@ The system is designed using a client-server architecture:
    ```bash
    git clone https://github.com/yourusername/EmployeeManagementSystem.git
    cd EmployeeManagementSystem
+Set up the database:
+
+2. Update the connection string in appsettings.json in the Server project.
+Run the database migrations to create the database schema:
+bash
+Copy code
+cd Server
+dotnet ef database update
+
+3. Build and run the application:
+# Run the API
+cd Server
+dotnet run
+
+# Run the client
+cd ../Client
+dotnet run
+
