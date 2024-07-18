@@ -1,3 +1,8 @@
+# Diagram
+![Uploading Diagram.jpg…]()
+
+
+
 # Employee Management System
 
 ## Table of Contents
